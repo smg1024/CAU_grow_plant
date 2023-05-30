@@ -2,8 +2,6 @@
 #include "main.h"
 
 #define MAX_LEVEL 4
-#define WATER_DELAY 2000000 // 2 sec
-
 
 static off_t IEB_DOT[MAX_DOT] = {
 	IEB_DOT1,
@@ -33,24 +31,30 @@ int game_time = 10;
 truth_t game_over = FALSE;
 
 void water_plant() {
+	// Plant Level Up
 	if( water_count < MAX_LEVEL ) {
 		water_count++;
 		led_level(water_count);
 	}
 	
+	// Game Clear
 	if( water_count == MAX_LEVEL ) {
 		clcd_clear_display();
 		clcd_write_string("WINNER WINNER");
 		clcd_set_DDRAM(0x40);	// 2nd line
 		clcd_write_string("CHICKEN DINNER!!");
+
+		// Flower Animation
 		dot_write(0);
 		usleep(500000);
 		dot_write(1);
 		usleep(500000);
 		dot_write(2);
+
 		led_blink_flower();
 		dot_down_shift(2);
 		led_down_shift();
+
 		sleep(3);
 		clcd_clear_display();
 		fnd_clear();
@@ -59,18 +63,22 @@ void water_plant() {
 	}
 }
 
-void decrease_time() {
+void decrease_time() {	// Game Time, Game Over
+	// Time decreased by 1 sec
 	fnd_write(game_time, 0);
 	game_time--;
 	usleep(1000000);
 	
+	// Time = 0 -> Game Over
 	if( game_time < 0 && !game_over ) {
 		clcd_clear_display();
 		clcd_write_string("LOSER T^T");
 		clcd_set_DDRAM(0x40);	// 2nd line
 		clcd_write_string("SHAME ON YOU!");
+
 		led_blink_all();
 		led_down_shift();
+
 		sleep(3);
 		clcd_clear_display();
 		fnd_clear();
@@ -113,7 +121,7 @@ int main(int argc, char* argv[]) {
 	
 	if( sel.exit == 1 ) { return 0; }
 	
-	while( !game_over ) {
+	while( !game_over ) {	// Game in process until game over
 	
 		int key_count, key_value;
 		key_count = keypad_read(&key_value);
@@ -161,7 +169,7 @@ void emergency_closer() {
 }
 
 void select_mode() {
-	int i;  char buf[100];
+	int i;
 	char clcd_str[20] = "";
 	
 	led_clear();
@@ -174,7 +182,7 @@ void select_mode() {
 	printf("*                                  *\n");
 	printf("*         GROW YOUR PLANT          *\n");
 	printf("*                                  *\n");
-	printf("*       Try not to kill it         *\n");
+	printf("*        Try not to kill it        *\n");
 	printf("*                                  *\n");
 	printf("************************************\n\n");
 	

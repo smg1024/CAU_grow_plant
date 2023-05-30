@@ -44,10 +44,9 @@ int main();
 short * mapper(off_t offset, int prot);
 void unmapper();
 void emergency_closer();
-
-truth_t logic();
 void select_mode();
-void input_mode();
+void water_plant();
+void decrease_time();
 
 
 #endif

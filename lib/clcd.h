@@ -23,9 +23,6 @@ void clcd_shift(int SC, int RL);
 void clcd_function_set(int DL, int N, int F);
 void clcd_set_DDRAM(int address);
 void clcd_write_string(char str[]);
-void game_start();
-void plane_init();
-void obstacle_init();
 void clcd_set_cgram(int address);
 
 #endif

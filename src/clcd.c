@@ -81,13 +81,3 @@ void plane_init() {
 	clcd_set_DDRAM( 0 );
 	clcd_write_string("Hello!");
 }
-
-void obstacle_init() {
-	clcd_shift(1, 0);
-}
-
-
-void game_start() {
-	plane_init();
-	obstacle_init();
-}
