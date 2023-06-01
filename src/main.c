@@ -122,22 +122,21 @@ int main(int argc, char* argv[]) {
 	if( sel.exit == 1 ) { return 0; }
 	
 	while( !game_over ) {	// Game in process until game over
-	
+
 		int key_count, key_value;
 		key_count = keypad_read(&key_value);
-		
-		if( !game_over ) {
-			decrease_time();
-		
-			if( key_count == 1 ) {
-				if( key_value == 0 ) {
-					water_plant();
-				}
-			}
-			else if( key_count > 1 ) {
-				break;
+
+		decrease_time();
+	
+		if( key_count == 1 ) {
+			if( key_value == 0 ) {
+				water_plant();
 			}
 		}
+		else if( key_count > 1 ) {
+			break;
+		}
+
 	}
 	
 	unmapper();
